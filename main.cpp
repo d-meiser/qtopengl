@@ -2,7 +2,7 @@
 #include <QOpenGLContext>
 #include <QOffscreenSurface>
 #include <QSurfaceFormat>
-#include <QOpenGLFunctions_3_3_Core>
+#include <QOpenGLFunctions>
 #include <QDebug>
 
 
@@ -27,8 +27,8 @@ int main(int argn, char** argv) {
 
     context.makeCurrent(&surface);
 
-    QOpenGLFunctions_3_3_Core f;
-    if(!f.initializeOpenGLFunctions()) return 3;
+    QOpenGLFunctions f;
+    f.initializeOpenGLFunctions();
     qDebug() << QString::fromLatin1("OpenGLFunctions initialized.");
     qDebug() << QString::fromLatin1((const char*)f.glGetString(GL_VERSION));
 
