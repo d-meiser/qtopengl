@@ -12,9 +12,6 @@ before_install:
  - sudo apt-get -y install qt${QT_VERSION}declarative
  - sudo apt-get -y install qt${QT_VERSION}quickcontrols
  - sudo apt-get -y install qt${QT_VERSION}tools 
-# Upgrade OpenGL drivers
- - sudo add-apt-repository ppa:oibaf/graphics-drivers
- - sudo apt-get -y install libegl1-mesa libegl1-mesa-drivers xserver-xorg-video-intel libgl1-mesa-dri libglapi-mesa
 # set up xvfb
  - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
