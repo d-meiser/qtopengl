@@ -16,18 +16,20 @@ int main(int argn, char** argv) {
     QOpenGLContext context;
     context.setFormat(format);
     context.create();
-    if (!context.isValid()) return -1;
+    if (!context.isValid()) return 1;
+    qDebug() << QString::fromLatin1("Context created.");
 
     QOffscreenSurface surface;
     surface.setFormat(format);
     surface.create();
-    if(!surface.isValid()) return -2;
+    if(!surface.isValid()) return 2;
+    qDebug() << QString::fromLatin1("Surface created.");
 
     context.makeCurrent(&surface);
 
     QOpenGLFunctions_3_3_Core f;
-    if(!f.initializeOpenGLFunctions()) return -3;
-
+    if(!f.initializeOpenGLFunctions()) return 3;
+    qDebug() << QString::fromLatin1("OpenGLFunctions initialized.");
     qDebug() << QString::fromLatin1((const char*)f.glGetString(GL_VERSION));
 
     return 0;
