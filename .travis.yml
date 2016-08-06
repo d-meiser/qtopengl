@@ -15,8 +15,8 @@ before_install:
 # Upgrade OpenGL drivers
  - sudo add-apt-repository ppa:oibaf/graphics-drivers
  - sudo apt-get update -qq
- - sudo apt-get install --install-recommends libgl1-mesa-dev
- - sudo apt-get install mesa-utils
+ - sudo apt-get install -y --force-yes --install-recommends libgl1-mesa-dev
+ - sudo apt-get install -y --force-yes mesa-utils
 # set up xvfb
  - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
