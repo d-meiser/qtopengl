@@ -16,8 +16,6 @@ before_install:
  - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
  - sleep 3 # give xvfb some time to start
-# check opengl version
- - glxinfo | grep version
 
 script:
  - source /opt/qt${QT_VERSION}/bin/qt${QT_VERSION}-env.sh
