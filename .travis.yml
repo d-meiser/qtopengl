@@ -4,6 +4,17 @@ language: cpp
 compiler:
  - gcc
 
+addons:
+  apt:
+     packages:
+        - xserver-xorg-video-dummy
+        - xpra
+        - xorg-dev
+        - libgl1-mesa-dev
+        - libxrandr-dev
+        - mesa-utils
+        - libgl1-mesa-glx
+
 before_install:
 # Get Qt dev packages
  - export QT_VERSION=56
@@ -14,15 +25,18 @@ before_install:
  - sudo apt-get -y install qt${QT_VERSION}tools 
 # Upgrade OpenGL drivers
  - sudo add-apt-repository ppa:oibaf/graphics-drivers
- - sudo apt-get update -qq
- - sudo apt-get install -y --force-yes --install-recommends libgl1-mesa-dev
- - sudo apt-get install -y --force-yes mesa-utils
-# set up xvfb
- - "export DISPLAY=:99.0"
- - "sh -e /etc/init.d/xvfb start"
- - sleep 3 # give xvfb some time to start
-# check opengl version
+ - sudo apt-get update -qq -y
+ - export DEBIAN_FRONTEND=noninteractive
+ - sudo apt-get -yq --force-yes install libgl1-mesa-dev libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri libxatracker-dev xvfb
  - glxinfo | grep version
+
+before_script:
+ - export DISPLAY=:99
+ - export LIBGL_ALWYAS_SOFTWARE=1
+ - xpra --xvfb="Xorg +extension GLX +extension RANDR +extension RENDER -config `pwd`/test/dummy.xorg.conf -logfile ${HOME}/.xpra/xorg.log"  start :99
+ - sleep 3 
+ - glxinfo
+ - cat ${HOME}/.xpra/xorg.log
 
 script:
  - source /opt/qt${QT_VERSION}/bin/qt${QT_VERSION}-env.sh
